@@ -1,0 +1,18 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Role</h2>
+
+@using (Html.BeginForm("Create", "Role"))
+{
+<div class="form-group">
+    <label>Name</label>
+    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+</div>
+    <input type="submit" value="Add" class="btn btn-outline-success" />
+}
+
+@Html.ActionLink("RoleList", "RoleList", "Role")

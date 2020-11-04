@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Egen.Models.Projects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">List of Projects</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<br />
+<br />
+
+<table class="table table-primary table-striped">
+    <tr>
+        <th>
+            Project Name
+        </th>
+        <th>
+            Project Code
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectCode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProjectId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId })
+            </td>
+        </tr>
+    }
+
+</table>

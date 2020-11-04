@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Egen.Models.Consultants>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">List of Consultants</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<br />
+<br />
+
+<table class="table table-primary table-striped">
+    <tr>
+        <th>
+            Consultant Name
+        </th>
+        <th>
+            Consultant Designation
+        </th>
+        <th>
+            Project Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ConsultantName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ConsultantDesignation)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Project.ProjectName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ConsultantId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ConsultantId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ConsultantId })
+    </td>
+</tr>
+    }
+
+</table>

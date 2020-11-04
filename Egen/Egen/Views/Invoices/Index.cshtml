@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Egen.Models.Invoices>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 1;
+}
+
+
+<h2 class="text-center">History</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<br />
+<br />
+
+<table class="table table-primary table-striped " style="width:1200px">
+    <tr>
+        <th>
+            SL#
+        </th>
+        <th>Invoice No</th>
+        <th>
+            Project Name
+        </th>
+        <th>Consultant Name</th>
+        <th>Consultant Bank Account</th>
+        <th>
+            Company Name
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            Due
+        </th>
+        <th>
+            Created Date
+        </th>
+        <th>
+            Modified Date
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@index</td>
+    <td>
+        @Html.DisplayFor(modelItem => item.InvoiceNo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Project.ProjectName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Consultant.ConsultantName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Bank.AccountName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Company.CompanyName)
+    </td>
+    @if (item.Date != null)
+    {
+        <td>
+            @item.Date.Value.ToString("dd/MM/yyy")
+        </td>
+    }
+    else
+    {
+        <td>@item.Date</td>
+    }
+
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Total)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Due)
+    </td>
+    @if (item.CreatedDate != null)
+    {
+        <td>
+            @item.CreatedDate.Value.ToString("dd/MM/yyy")
+        </td>
+    }
+    else
+    {
+        <td>@item.CreatedDate</td>
+    }
+    @if (item.ModifiedDate != null)
+    {
+        <td>
+            @item.ModifiedDate.Value.ToString("dd/MM/yyy")
+        </td>
+    }
+    else
+    {
+        <td>@item.ModifiedDate</td>
+    }
+
+    <td>
+
+        @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.InvoiceId }) |
+        @Html.ActionLink("GenerateInvoice", "GenerateInvoice", new { id = item.InvoiceId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceId })
+    </td>
+</tr>
+        index++;
+    }
+
+</table>

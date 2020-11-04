@@ -1,0 +1,68 @@
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<Egen.Models.Companies>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 class="text-center">List of Companies</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<br />
+<br />
+
+<table class="table table-primary table-striped" id="DataTable">
+    <thead>
+        <tr>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Company Address
+            </th>
+            <th>
+                Attention
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attention)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CompanyId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
+                </td>
+            </tr>
+        </tbody>
+    }
+
+
+</table>
+
+@section scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.22/datatables.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#DataTable").dataTable({
+                "order": [[3, "desc"]]
+            });
+        });
+
+
+    </script>
+}

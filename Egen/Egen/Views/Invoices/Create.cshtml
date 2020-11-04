@@ -1,0 +1,378 @@
+﻿@model Egen.Models.Invoices
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="d-flex justify-content-center">
+                <ul class="nav bg-warning" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active " data-toggle="tab" href="#step-1" id="step1-tab" aria-selected="true" role="tab">Select Authors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#step-2" id="step2-tab" aria-selected="false" role="tab">Create Invoice</a>
+                    </li>
+                </ul>
+            </div>
+            <hr />
+            <div class="tab-content" style="background-color:cornsilk">
+                <div id="step-1" class="tab-pane fade show active" aria-labelledby="step1-tab" role="tabpanel">
+                    <div class="form-card">
+                        <h2 class="fs-title text-center">Select Authors</h2>
+                        <br />
+                        <div class="row">
+                            <div class="input-group">
+                                <label class="col-md-3 text-right">Project</label>
+                                @Html.DropDownList("ProjectId", null, "--Select--", htmlAttributes: new { @class = "form-control", @id = "ProjectId" })
+                                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="input-group">
+                                <label class="col-md-3 text-right">Consultant</label>
+                                @Html.DropDownList("ConsultantId", null, "--Select--", htmlAttributes: new { @class = "form-control", @id = "ConsultantId" })
+                                @Html.ValidationMessageFor(model => model.ConsultantId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="input-group">
+                                <label class="col-md-3 text-right">Bank</label>
+                                @Html.DropDownList("BankId", null, "--Select--", htmlAttributes: new { @class = "form-control", @id = "BankId" })
+                                @Html.ValidationMessageFor(model => model.BankId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="input-group">
+                                <label class="col-md-3 text-right">Company</label>
+                                @Html.DropDownList("CompanyId", null, "--Select--", htmlAttributes: new { @class = "form-control", @id = "CompanyId" })
+                                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <br />
+                    </div>
+                </div>
+
+
+
+                <div id="step-2" class="tab-pane fade " aria-labelledby="step2-tab" role="tabpanel">
+                    <br>
+                    <div class="form-card">
+                        <h2 class="fs-title text-center">Create Invoice</h2>
+                        <br />
+                        <div class="row">
+                            <div class="input-group">
+                                <label class="col-md-3 text-right">Date</label>
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                <label class="col-md-3 text-right">USD</label>
+                                @Html.EditorFor(model => model.IsUsd, new { @id = "isUsd" })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="row">
+                            <div class="input-group">
+                                <label class="col-md-3 text-right">Invoice No</label>
+                                @Html.EditorFor(model => model.InvoiceNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        </div>
+
+
+                        <!---->
+
+
+                        <br />
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.Remuneration, new { htmlAttributes = new { @class = "form-control", @Value = "Remuneration", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Remuneration, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.RemunerationDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RemunerationDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Working Days</label>
+                                @Html.EditorFor(model => model.RemunerationWorkingDays, new { htmlAttributes = new { @class = "form-control", @id = "remunerationWorkingDays" } })
+                                @Html.ValidationMessageFor(model => model.RemunerationWorkingDays, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Daily Rate</label>
+                                @Html.EditorFor(model => model.RemunerationDailyRate, new { htmlAttributes = new { @class = "form-control", @id = "remunerationDailyRate" } })
+                                @Html.ValidationMessageFor(model => model.RemunerationDailyRate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.RemunerationTotal, new { htmlAttributes = new { @class = "form-control", @id = "remunerationTotal", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.RemunerationTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.PerDiem, new { htmlAttributes = new { @class = "form-control", @Value = "PerDiem", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.PerDiem, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.PerDiemDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PerDiemDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Working Days</label>
+                                @Html.EditorFor(model => model.PerDiemWorkingDays, new { htmlAttributes = new { @class = "form-control", @id = "perDiemWorkingDays" } })
+                                @Html.ValidationMessageFor(model => model.PerDiemWorkingDays, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Daily Rate</label>
+                                @Html.EditorFor(model => model.PerDiemDailyRate, new { htmlAttributes = new { @class = "form-control", @id = "perDiemDailyRate" } })
+                                @Html.ValidationMessageFor(model => model.PerDiemDailyRate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.PerDiemTotal, new { htmlAttributes = new { @class = "form-control", @id = "perDiemTotal", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.PerDiemTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.AirFare, new { htmlAttributes = new { @class = "form-control", @Value = "AirFare" } })
+                                @Html.ValidationMessageFor(model => model.AirFare, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.AirFareDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AirFareDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.AirFareTotal, new { htmlAttributes = new { @class = "form-control", @id = "airFareTotal" } })
+                                @Html.ValidationMessageFor(model => model.AirFareTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.Accommodation, new { htmlAttributes = new { @class = "form-control", @Value = "Accommodation" } })
+                                @Html.ValidationMessageFor(model => model.Accommodation, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.AccommodationDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AccommodationDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.AccommodationTotal, new { htmlAttributes = new { @class = "form-control", @id = "accommodationTotal" } })
+                                @Html.ValidationMessageFor(model => model.AccommodationTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.VisaFees, new { htmlAttributes = new { @class = "form-control", @Value = "VisaFees" } })
+                                @Html.ValidationMessageFor(model => model.VisaFees, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.VisaFeesDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.VisaFeesDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.VisaFeesTotal, new { htmlAttributes = new { @class = "form-control", @id = "visaFeesTotal" } })
+                                @Html.ValidationMessageFor(model => model.VisaFeesTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.TaxiFare, new { htmlAttributes = new { @class = "form-control", @Value = "TaxiFare" } })
+                                @Html.ValidationMessageFor(model => model.TaxiFare, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.TaxiFareDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TaxiFareDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.TaxiFareTotal, new { htmlAttributes = new { @class = "form-control", @id = "taxiFareTotal" } })
+                                @Html.ValidationMessageFor(model => model.TaxiFareTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label>Item</label>
+                                @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control", @Value = "Other", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Details</label>
+                                @Html.EditorFor(model => model.OtherDetails, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.OtherDetails, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Working Days</label>
+                                @Html.EditorFor(model => model.OtherWorkingDays, new { htmlAttributes = new { @class = "form-control", @id = "otherWorkingDays" } })
+                                @Html.ValidationMessageFor(model => model.OtherWorkingDays, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Daily Rate</label>
+                                @Html.EditorFor(model => model.OtherDailyRate, new { htmlAttributes = new { @class = "form-control", @id = "otherDailyRate" } })
+                                @Html.ValidationMessageFor(model => model.OtherDailyRate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Total</label>
+                                @Html.EditorFor(model => model.OtherTotal, new { htmlAttributes = new { @class = "form-control", @id = "otherTotal" } })
+                                @Html.ValidationMessageFor(model => model.OtherTotal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="float-right">
+                            <div class="form-group">
+                                <label>Sub Total</label>
+                                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @id = "subTotal", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label>Advance</label>
+                                @Html.EditorFor(model => model.Advance, new { htmlAttributes = new { @class = "form-control", @id = "advance" } })
+                                @Html.ValidationMessageFor(model => model.Advance, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Total Due</label>
+                                @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control", @id = "totalDue", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Due, "", new { @class = "text-danger" })
+
+                            </div>
+                            <input type="submit" name="submit" class="btn btn-outline-success float-right" value="Submit" />
+                        </div>
+                        
+                    </div>
+                    </div>
+
+        }
+    </div>
+</div>
+<br />
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-sm btn-outline-primary float-none">History</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //consultant
+            $("#ProjectId").change(function () {
+                var ProjectId = $("#ProjectId").val();
+                var url = "/Invoices/GetConsultantList";
+
+                $.getJSON(url, { ProjectId: ProjectId }, function (data) {
+                    var item = '';
+                    $('#ConsultantId').empty();
+                    $.each(data, function (i, consultant) {
+                        item += '<option value="' + consultant.ConsultantId + '">' + consultant.ConsultantName + '</option>'
+                    });
+                    $("#ConsultantId").html(item);
+                });
+
+            });
+            //bank
+            $('#ConsultantId').change(function () {
+                var ConsultantId = $("#ConsultantId").val();
+                var url = "/Invoices/GetBankList";
+
+                $.getJSON(url, { ConsultantId: ConsultantId }, function (data) {
+                    var item = '';
+                    $("#BankId").empty();
+                    $.each(data, function (i, bank) {
+                        item += '<option value="' + bank.BankId + '">' + bank.BankName + '</option>'
+                    });
+                    $("#BankId").html(item);
+                });
+            });
+
+        });
+
+        //calculation
+        $(function calculate() {
+            $('#remunerationWorkingDays,#remunerationDailyRate').keyup(function () {
+                var workingDays = parseFloat($('#remunerationWorkingDays').val()) || 0;
+                var dailyRate = parseFloat($("#remunerationDailyRate").val()) || 0;
+                $('#remunerationTotal').val(workingDays * dailyRate);
+            });
+
+            $('#perDiemWorkingDays,#perDiemDailyRate').keyup(function () {
+                var workingDays = parseFloat($('#perDiemWorkingDays').val()) || 0;
+                var dailyRate = parseFloat($("#perDiemDailyRate").val()) || 0;
+                $('#perDiemTotal').val(workingDays * dailyRate);
+            });
+            $('#otherWorkingDays,#otherDailyRate').keyup(function () {
+                var workingDays = parseFloat($('#otherWorkingDays').val()) || 0;
+                var dailyRate = parseFloat($("#otherDailyRate").val()) || 0;
+                $('#otherTotal').val(workingDays * dailyRate);
+            });
+            $('#remunerationTotal,#perDiemTotal,#airFareTotal,#accommodationTotal,#visaFeesTotal,#taxiFareTotal,#otherTotal').keyup(function () {
+                var remuneration = parseFloat($('#remunerationTotal').val()) || 0;
+                var perDiem = parseFloat($('#perDiemTotal').val()) || 0;
+                var airFare = parseFloat($('#airFareTotal').val()) || 0;
+                var accommodation = parseFloat($('#accommodationTotal').val()) || 0;
+                var visaFees = parseFloat($('#visaFeesTotal').val()) || 0;
+                var taxiFare = parseFloat($('#taxiFareTotal').val()) || 0;
+                var other = parseFloat($('#otherTotal').val()) || 0;
+                $('#subTotal').val(remuneration + perDiem + airFare + accommodation + visaFees + taxiFare + other);
+            });
+            $('#subTotal,#advance').keyup(function () {
+                var sub = parseFloat($('#subTotal').val()) || 0;
+                var advance = parseFloat($("#advance").val()) || 0;
+                $('#totalDue').val(sub - advance);
+            });
+        });
+    </script>
+}

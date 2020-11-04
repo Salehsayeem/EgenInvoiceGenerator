@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Egen.Models.Banks>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">List of Consultants Bank Details</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<br />
+<br />
+
+<table class="table table-primary table-striped">
+    <tr>
+        <th>
+            Consultant Name
+        </th>
+        <th>
+            Bank Account Name
+        </th>
+        <th>
+            Bank Account Number
+        </th>
+        <th>
+            IBAN
+        </th>
+        <th>
+            Bank Name
+        </th>
+        <th>
+            Swift Code
+        </th>
+        <th>
+            Routing Type
+        </th>
+        <th>
+            Routing Number
+        </th>
+        <th>
+            Bank Country
+        </th>
+        <th>
+            Bank Branch
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Consultant.ConsultantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Iban)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BankName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SwiftCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoutingType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoutingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BankCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BankBranch)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BankId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BankId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BankId })
+            </td>
+        </tr>
+    }
+
+</table>
