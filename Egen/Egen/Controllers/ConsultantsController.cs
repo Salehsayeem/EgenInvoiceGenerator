@@ -95,29 +95,14 @@ namespace Egen.Controllers
             return View(consultants);
         }
 
-        // GET: Consultants/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            Consultants data = db.Consultants.First(s => s.ConsultantId == id);
+            if (data != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Consultants.Remove(data);
+                db.SaveChanges();
             }
-            Consultants consultants = db.Consultants.Find(id);
-            if (consultants == null)
-            {
-                return HttpNotFound();
-            }
-            return View(consultants);
-        }
-
-        // POST: Consultants/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Consultants consultants = db.Consultants.Find(id);
-            db.Consultants.Remove(consultants);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

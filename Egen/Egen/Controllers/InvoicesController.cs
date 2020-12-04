@@ -147,28 +147,14 @@ namespace Egen.Controllers
             return View(invoices);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            Invoices data = db.Invoices.First(s => s.InvoiceId == id);
+            if (data != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Invoices.Remove(data);
+                db.SaveChanges();
             }
-            Invoices invoices = db.Invoices.Find(id);
-            if (invoices == null)
-            {
-                return HttpNotFound();
-            }
-            return View(invoices);
-        }
-
-        // POST: Invoices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Invoices invoices = db.Invoices.Find(id);
-            db.Invoices.Remove(invoices);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

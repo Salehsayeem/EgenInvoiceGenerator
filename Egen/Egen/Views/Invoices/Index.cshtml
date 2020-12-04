@@ -3,116 +3,132 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int index = 1;
+    int a = 1;
 }
 
-
+<br />
 <h2 class="text-center">History</h2>
 
-<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<a href="@Url.Action("Create")" class="btn btn-lg btn-success float-right">Add Invoice</a>
 <br />
 <br />
 
-<table class="table table-primary table-striped " style="width:1200px">
-    <tr>
-        <th>
-            SL#
-        </th>
-        <th>Invoice No</th>
-        <th>
-            Project Name
-        </th>
-        <th>Consultant Name</th>
-        <th>Consultant Bank Account</th>
-        <th>
-            Company Name
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Total
-        </th>
-        <th>
-            Due
-        </th>
-        <th>
-            Created Date
-        </th>
-        <th>
-            Modified Date
-        </th>
+<table class="table table-responsive-md table-primary table-hover table-striped" style:width="1200px">
+    <thead class="black white-text">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>Invoice No</th>
+            <th>
+                Project Name
+            </th>
+            <th>Consultant Name</th>
+            <th>Consultant Bank Account</th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Due
+            </th>
+            <th>
+                Created Date
+            </th>
+            <th>
+                Modified Date
+            </th>
 
-        <th></th>
-    </tr>
+            <th>Action</th>
+        </tr>
+    </thead>
+        @foreach (var item in Model)
+        {
+            <tbody>
+            <tr>
+                <td>@(a++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.ProjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consultant.ConsultantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bank.AccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                </td>
+                @if (item.Date != null)
+                {
+                    <td>
+                        @item.Date.Value.ToString("dd/MM/yyy")
+                    </td>
+                }
+                else
+                {
+                    <td>@item.Date</td>
+                }
 
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>@index</td>
-    <td>
-        @Html.DisplayFor(modelItem => item.InvoiceNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Project.ProjectName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Consultant.ConsultantName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Bank.AccountName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Company.CompanyName)
-    </td>
-    @if (item.Date != null)
-    {
-        <td>
-            @item.Date.Value.ToString("dd/MM/yyy")
-        </td>
-    }
-    else
-    {
-        <td>@item.Date</td>
-    }
 
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Due)
+                </td>
+                @if (item.CreatedDate != null)
+                {
+                    <td>
+                        @item.CreatedDate.Value.ToString("dd/MM/yyy")
+                    </td>
+                }
+                else
+                {
+                    <td>@item.CreatedDate</td>
+                }
+                @if (item.ModifiedDate != null)
+                {
+                    <td>
+                        @item.ModifiedDate.Value.ToString("dd/MM/yyy")
+                    </td>
+                }
+                else
+                {
+                    <td>@item.ModifiedDate</td>
+                }
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Total)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Due)
-    </td>
-    @if (item.CreatedDate != null)
-    {
-        <td>
-            @item.CreatedDate.Value.ToString("dd/MM/yyy")
-        </td>
-    }
-    else
-    {
-        <td>@item.CreatedDate</td>
-    }
-    @if (item.ModifiedDate != null)
-    {
-        <td>
-            @item.ModifiedDate.Value.ToString("dd/MM/yyy")
-        </td>
-    }
-    else
-    {
-        <td>@item.ModifiedDate</td>
-    }
+            <td>
+                <a class="btn btn-sm btn-teal" href="@Url.Action("Edit", new {id = item.InvoiceId})">
+                    <i class="fa fa-pencil-square-o" title="Edit"></i>
+                </a>
+                <a class="btn btn-sm btn-elegant" href="@Url.Action("Details", new {id = item.InvoiceId})">
+                    <i class="fa fa-bars" title="Details"></i>
+                </a>
+                <a class="btn btn-sm btn-success " href="@Url.Action("GenerateInvoice", new {id = item.InvoiceId})">
+                    <i class="fa fa-print" title="Print This Information"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" href="@Url.Action("Delete",new {id = item.InvoiceId})" onclick = "return confirm('Are sure wants to delete? ');">
+                    <i class="fa fa-trash-o" title="Delete"></i>
+                </a>
 
-    <td>
-
-        @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.InvoiceId }) |
-        @Html.ActionLink("GenerateInvoice", "GenerateInvoice", new { id = item.InvoiceId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceId })
-    </td>
-</tr>
-        index++;
-    }
+            </td>
+            </tr>
+            </tbody>
+        }
 
 </table>
+
+@section scripts{
+
+
+}
+

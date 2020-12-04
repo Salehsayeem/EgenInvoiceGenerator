@@ -4,46 +4,44 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Projects</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ProjectId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+<div class="progress">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<br />
+<div class="card">
+    <h5 class="card-header info-color white-text text-center py-4">
+        <strong>Edit Project Details</strong>
+    </h5>
+    <div class="card-body px-lg-5 pt-0">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ProjectId)
+            <div class="md-form">
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                <label>Project Name</label>
                 @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectCode, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="md-form">
+
+
+                @Html.EditorFor(model => model.ProjectCode, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                <label>Project Code</label>
                 @Html.ValidationMessageFor(model => model.ProjectCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
             </div>
-        </div>
+
+            <button class="btn btn-success btn-block z-depth-0 my-4 waves-effect rounded" type="submit">Submit</button>
+
+
+        }
     </div>
-}
-
+</div>
+<br />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Index")" class="btn btn-lg btn-primary float-none btn-unique btn-block waves-effect rounded">List</a>
 </div>
 
 @section Scripts {

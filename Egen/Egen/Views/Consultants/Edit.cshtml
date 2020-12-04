@@ -4,54 +4,49 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
-
+<div class="progress">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<br />
+<div class="card">
+<h5 class="card-header info-color white-text text-center py-4">
+    <strong>Edit Consultant Details</strong>
+</h5>
+<div class="card-body px-lg-5 pt-0">
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Consultants</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ConsultantId)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ConsultantId)
+    <div class="form-group">
+        <label>Project</label>
+        @Html.DropDownList("ProjectId", null, "--Select--", htmlAttributes: new { @class = "form-control" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConsultantName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConsultantName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConsultantName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConsultantDesignation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConsultantDesignation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConsultantDesignation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
     </div>
-}
+    <div class="md-form">
+        @Html.EditorFor(model => model.ConsultantName, new { htmlAttributes = new { @class = "form-control", @required = "required", @id = "validationCustom022" } })
+        <label>Consultant Name</label>
+        @Html.ValidationMessageFor(model => model.ConsultantName, "", new { @class = "text-danger" })
 
+    </div>
+
+    <div class="md-form">
+        @Html.EditorFor(model => model.ConsultantDesignation, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+        <label>Consultant Designation</label>
+                
+        @Html.ValidationMessageFor(model => model.ConsultantDesignation, "", new { @class = "text-danger" })
+    </div>
+    <button class="btn btn-success btn-block z-depth-0 my-4 waves-effect rounded" type="submit">Submit</button>
+
+
+}
+</div>
+</div>
+<br />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Index")" class="btn btn-lg btn-primary float-none btn-unique btn-block waves-effect rounded">List</a>
 </div>
 
 @section Scripts {

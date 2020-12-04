@@ -90,31 +90,17 @@ namespace Egen.Controllers
             return View(companies);
         }
 
-        // GET: Companies/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            Companies companies = db.Companies.First(s => s.CompanyId == id);
+            if (companies != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Companies.Remove(companies);
+                db.SaveChanges();
             }
-            Companies companies = db.Companies.Find(id);
-            if (companies == null)
-            {
-                return HttpNotFound();
-            }
-            return View(companies);
+            return RedirectToAction("Index","Companies");
         }
 
-        // POST: Companies/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Companies companies = db.Companies.Find(id);
-            db.Companies.Remove(companies);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

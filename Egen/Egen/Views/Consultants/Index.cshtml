@@ -1,48 +1,65 @@
-﻿@model IEnumerable<Egen.Models.Consultants>
+﻿
+@model IEnumerable<Egen.Models.Consultants>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 1;
 }
 
+<br/>
 <h2 class="text-center">List of Consultants</h2>
 
-<a href="@Url.Action("Create")" class="btn btn-sm btn-outline-success float-right">Create</a>
+<a href="@Url.Action("Create")" class="btn btn-lg btn-success float-right">Create</a>
 <br />
 <br />
 
-<table class="table table-primary table-striped">
-    <tr>
-        <th>
-            Consultant Name
-        </th>
-        <th>
-            Consultant Designation
-        </th>
-        <th>
-            Project Name
-        </th>
-        <th></th>
-    </tr>
-
+<table  class="table table-responsive-md table-primary table-hover table-striped" style:width="100%">
+    <thead class="black white-text">
+        <tr>
+            <th>#</th>
+            <th>
+                Consultant Name
+            </th>
+            <th>
+                Consultant Designation
+            </th>
+            <th>
+                Project Name
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ConsultantName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ConsultantDesignation)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Project.ProjectName)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ConsultantId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ConsultantId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ConsultantId })
-    </td>
-</tr>
+        <tbody>
+            <tr>
+                <td>@(a++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsultantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsultantDesignation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.ProjectName)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-teal" href="@Url.Action("Edit",new {id = item.ConsultantId})">
+                        <i class="fa fa-pencil-square-o" title="Edit"></i>
+                    </a>|
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete",new {id = item.ConsultantId})" onclick="return confirm('Are sure wants to delete? ');">
+                        <i class="fa fa-trash-o" title="Delete"></i>
+                    </a>
+
+                </td>
+            </tr>
+        </tbody>
     }
 
 </table>
+
+@section scripts{
+
+
+}

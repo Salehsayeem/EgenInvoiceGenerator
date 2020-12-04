@@ -89,28 +89,14 @@ namespace Egen.Controllers
         }
 
         // GET: Projects/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            Projects data = db.Projects.First(s => s.ProjectId == id);
+            if (data != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Projects.Remove(data);
+                db.SaveChanges();
             }
-            Projects projects = db.Projects.Find(id);
-            if (projects == null)
-            {
-                return HttpNotFound();
-            }
-            return View(projects);
-        }
-
-        // POST: Projects/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Projects projects = db.Projects.Find(id);
-            db.Projects.Remove(projects);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

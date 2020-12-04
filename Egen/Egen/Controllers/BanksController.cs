@@ -96,28 +96,14 @@ namespace Egen.Controllers
         }
 
         // GET: Banks/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            Banks data = db.Banks.First(s => s.BankId == id);
+            if (data != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Banks.Remove(data);
+                db.SaveChanges();
             }
-            Banks banks = db.Banks.Find(id);
-            if (banks == null)
-            {
-                return HttpNotFound();
-            }
-            return View(banks);
-        }
-
-        // POST: Banks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Banks banks = db.Banks.Find(id);
-            db.Banks.Remove(banks);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

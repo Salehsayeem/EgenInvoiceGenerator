@@ -4,57 +4,50 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="card">
-        <div class="card-title">
-            <h2 class="text-center">Create Company</h2>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<br />
+<div class="card">
+    <h5 class="card-header info-color white-text text-center py-4">
+        <strong>Create Company</strong>
+    </h5>
+    <div class="card-body px-lg-5 pt-0">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        </div>
-        <div class="card-body">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label>Company Name</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            <br />
 
-                <div class="form-group">
-                    <label>Company Address</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CompanyAddress, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Attention</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Attention, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Attention, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-lg btn-outline-success float-none"  />
-                    </div>
-                </div>
+            <div class="md-form">
+                @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                <label>Company Name</label>
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
             </div>
-        </div>
+
+            <div class="md-form">
+                @Html.EditorFor(model => model.CompanyAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                <label>Company Address</label>
+                @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="md-form">
+
+                @Html.EditorFor(model => model.Attention, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                <label>Attention</label>
+                @Html.ValidationMessageFor(model => model.Attention, "", new { @class = "text-danger" })
+            </div>
+
+            <button class="btn btn-success btn-block z-depth-0 my-4 waves-effect rounded" type="submit">Submit</button>
+
+
+        }
     </div>
-    
-}
+</div>
 <br />
 <div>
-    <a href="@Url.Action("Index")" class="btn btn-sm btn-outline-primary float-none">List</a>
+    <a href="@Url.Action("Index")" class="btn btn-lg btn-primary float-none btn-unique btn-block waves-effect rounded">List</a>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
