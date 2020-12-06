@@ -17,8 +17,7 @@
 </head>
 <body>
     <div id="page-wrap">
-
-        <textarea id="header">Project Name : @Html.DisplayFor(model => model.Project.ProjectName) 
+    <textarea id="header">Project Name : @Html.DisplayFor(model => model.Project.ProjectName) 
 @Html.DisplayFor(model => model.Project.ProjectCode) 
 </textarea>
         <P>To</P>
@@ -58,7 +57,7 @@
                 <tr>
                     <td class="meta-head">Amount Due</td>
                     <td>
-                        <div class="due">@Html.DisplayFor(model => model.Due) </div>
+                        <div class="due">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.Due)</div>
                     </td>
                 </tr>
             </table>
@@ -70,9 +69,9 @@
             <tr>
                 <th>Item</th>
                 <th>Description</th>
-                <th>Daily Rate(BDT)</th>
+                <th>Daily Rate(@(Model.IsUsd == true ? "USD":"BDT"))</th>
                 <th>NO. Work Days</th>
-                <th>Tota(BDT)</th>
+                <th>Total(@(Model.IsUsd == true ? "USD":"BDT"))</th>
             </tr>
 
             <tr class="item-row">
@@ -85,7 +84,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.RemunerationDetails)                   </textarea></td>
                 <td><textarea class="cost"> @Html.DisplayFor(model => model.RemunerationDailyRate)                    </textarea></td>
                 <td><textarea class="qty">  @Html.DisplayFor(model => model.RemunerationWorkingDays)                      </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.RemunerationTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.RemunerationTotal) </span></td>
             </tr>
             <tr class="item-row">
                 <td class="item-name">
@@ -97,7 +96,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.PerDiemDetails)                   </textarea></td>
                 <td><textarea class="cost"> @Html.DisplayFor(model => model.PerDiemDailyRate)                    </textarea></td>
                 <td><textarea class="qty">  @Html.DisplayFor(model => model.PerDiemWorkingDays)                      </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.PerDiemTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.PerDiemTotal) </span></td>
             </tr>
 
             <tr class="item-row">
@@ -110,7 +109,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.AirFareDetails)                   </textarea></td>
                 <td><textarea class="cost">                  </textarea></td>
                 <td><textarea class="qty">                     </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.AirFareTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.AirFareTotal)</span></td>
             </tr>
 
             <tr class="item-row">
@@ -123,7 +122,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.AccommodationDetails)                   </textarea></td>
                 <td><textarea class="cost">                  </textarea></td>
                 <td><textarea class="qty">                     </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.AccommodationTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.AccommodationTotal)</span></td>
             </tr>
             <tr class="item-row">
                 <td class="item-name">
@@ -135,7 +134,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.VisaFeesDetails)                   </textarea></td>
                 <td><textarea class="cost">                  </textarea></td>
                 <td><textarea class="qty">                     </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.VisaFeesTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.VisaFeesTotal) </span></td>
             </tr>
             <tr class="item-row">
                 <td class="item-name">
@@ -147,7 +146,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.TaxiFareDetails)                   </textarea></td>
                 <td><textarea class="cost">                  </textarea></td>
                 <td><textarea class="qty">                     </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.TaxiFareTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.TaxiFareTotal) </span></td>
             </tr>
             <tr class="item-row">
                 <td class="item-name">
@@ -159,7 +158,7 @@
                 <td class="description"><textarea> @Html.DisplayFor(model => model.OtherDetails)                   </textarea></td>
                 <td><textarea class="cost"> @Html.DisplayFor(model => model.OtherDailyRate)                    </textarea></td>
                 <td><textarea class="qty">  @Html.DisplayFor(model => model.OtherWorkingDays)                      </textarea></td>
-                <td><span class="price"> @Html.DisplayFor(model => model.OtherTotal) </span></td>
+                <td><span class="price">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.OtherTotal)</span></td>
             </tr>
             @*<tr id="hiderow">
                     <td colspan="5"><a id="addrow" href="javascript:;" title="Add a row">Add a row</a></td>
@@ -177,20 +176,20 @@
                 <td colspan="2" class="blank"> </td>
                 <td colspan="2" class="total-line">Total</td>
                 <td class="total-value">
-                    <div id="total">@Html.DisplayFor(model => model.Total) </div>
+                    <div id="total">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.Total)</div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" class="blank"> </td>
                 <td colspan="2" class="total-line">Less: Payment/Advances</td>
 
-                <td class="total-value"><textarea id="paid">@Html.DisplayFor(model => model.Advance)</textarea></td>
+                <td class="total-value"><textarea id="paid">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.Advance) </textarea></td>
             </tr>
             <tr>
                 <td colspan="2" class="blank"> </td>
                 <td colspan="2" class="total-line balance">Total Balance Due</td>
                 <td class="total-value balance">
-                    <div class="due"> @Html.DisplayFor(model => model.Due)</div>
+                    <div class="due">@(Model.IsUsd == true ? "USD":"BDT") @Html.DisplayFor(model => model.Due) </div>
                 </td>
             </tr>
 
