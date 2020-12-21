@@ -6,16 +6,17 @@ using System.Web;
 
 namespace Egen.Models
 {
-    public partial class Invoices
+   // public partial class Invoices
+    public  class Invoices
     {
         [Key]
         public int InvoiceId { get; set; }
         public DateTime? Date { get; set; }
         public string InvoiceNo { get; set; }
-        public int BankId { get; set; }
-        public int ProjectId { get; set; }
+        public int? BankId { get; set; }
+        public int? ProjectId { get; set; }
         public int? ConsultantId { get; set; }
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public bool IsUsd { get; set; }
         public decimal? Total { get; set; }
         public decimal? Advance { get; set; }
@@ -49,10 +50,10 @@ namespace Egen.Models
         public int? OtherWorkingDays { get; set; }
         public decimal? OtherDailyRate { get; set; }
         public decimal? OtherTotal { get; set; }
-
-        public virtual Banks Bank { get; set; }
-        public virtual Companies Company { get; set; }
-        public virtual Consultants Consultant { get; set; }
-        public virtual Projects Project { get; set; }
+        public bool? IsActive { get; set; }
+        public  Banks Bank { get; set; }
+        public  Companies Company { get; set; }
+        public  Consultants Consultant { get; set; }
+        public  Projects Project { get; set; }
     }
 }

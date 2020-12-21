@@ -198,6 +198,22 @@
     <Compile Include="Migrations\202010311836493_init.Designer.cs">
       <DependentUpon>202010311836493_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012161702393_init3.cs" />
+    <Compile Include="Migrations\202012161702393_init3.Designer.cs">
+      <DependentUpon>202012161702393_init3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012161755026_dd.cs" />
+    <Compile Include="Migrations\202012161755026_dd.Designer.cs">
+      <DependentUpon>202012161755026_dd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012161858315_inittt.cs" />
+    <Compile Include="Migrations\202012161858315_inittt.Designer.cs">
+      <DependentUpon>202012161858315_inittt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201548224_isActive.cs" />
+    <Compile Include="Migrations\202012201548224_isActive.Designer.cs">
+      <DependentUpon>202012201548224_isActive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Banks.cs" />
@@ -706,6 +722,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010311836493_init.resx">
       <DependentUpon>202010311836493_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161702393_init3.resx">
+      <DependentUpon>202012161702393_init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161755026_dd.resx">
+      <DependentUpon>202012161755026_dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161858315_inittt.resx">
+      <DependentUpon>202012161858315_inittt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201548224_isActive.resx">
+      <DependentUpon>202012201548224_isActive.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\Egen.Migrations.init.resources" />
   </ItemGroup>

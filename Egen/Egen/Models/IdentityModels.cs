@@ -26,11 +26,11 @@ namespace Egen.Models
         {
         }
 
-        public virtual DbSet<Banks> Banks { get; set; }
-        public virtual DbSet<Companies> Companies { get; set; }
-        public virtual DbSet<Consultants> Consultants { get; set; }
-        public virtual DbSet<Invoices> Invoices { get; set; }
-        public virtual DbSet<Projects> Projects { get; set; }
+        public  DbSet<Banks> Banks { get; set; }
+        public  DbSet<Companies> Companies { get; set; }
+        public  DbSet<Consultants> Consultants { get; set; }
+        public  DbSet<Invoices> Invoices { get; set; }
+        public  DbSet<Projects> Projects { get; set; }
 
         public static ApplicationDbContext Create()
         {

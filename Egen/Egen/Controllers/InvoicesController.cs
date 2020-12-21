@@ -20,8 +20,8 @@ namespace Egen.Controllers
         // GET: Invoices
         public ActionResult Index()
         {
-            var invoices = db.Invoices.Include(i => i.Bank).Include(i => i.Company).Include(i => i.Consultant).Include(i => i.Project).OrderByDescending(a=>a.CreatedDate);
-            return View(invoices.ToList());
+            var list = db.Invoices.Include(i => i.Bank).Include(i => i.Company).Include(i => i.Consultant).Include(i => i.Project).OrderByDescending(a=>a.CreatedDate).Where(a => a.IsActive == true).ToList();
+            return View(list);
         }
 
         // GET: Invoices/Details/5
@@ -74,10 +74,10 @@ namespace Egen.Controllers
         // GET: Invoices/Create
         public ActionResult Create()
         {
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "AccountName");
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName");
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName");
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName");
+            ViewBag.BankId = new SelectList(db.Banks.Where(a => a.IsActive == true), "BankId", "AccountName");
+            ViewBag.CompanyId = new SelectList(db.Companies.Where(a => a.IsActive == true), "CompanyId", "CompanyName");
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName");
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName");
             return View();
         }
 
@@ -89,15 +89,16 @@ namespace Egen.Controllers
             if (ModelState.IsValid)
             {
                 invoices.CreatedDate = DateTime.Now;
+                invoices.IsActive = true;
                 db.Invoices.Add(invoices);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "AccountName", invoices.BankId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", invoices.CompanyId);
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName", invoices.ConsultantId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName", invoices.ProjectId);
+            ViewBag.BankId = new SelectList(db.Banks.Where(a => a.IsActive == true), "BankId", "AccountName", invoices.BankId);
+            ViewBag.CompanyId = new SelectList(db.Companies.Where(a => a.IsActive == true), "CompanyId", "CompanyName", invoices.CompanyId);
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName", invoices.ConsultantId);
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName", invoices.ProjectId);
             return View(invoices);
         }
 
@@ -113,10 +114,10 @@ namespace Egen.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "AccountName", invoices.BankId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", invoices.CompanyId);
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName", invoices.ConsultantId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName", invoices.ProjectId);
+            ViewBag.BankId = new SelectList(db.Banks.Where(a => a.IsActive == true), "BankId", "AccountName", invoices.BankId);
+            ViewBag.CompanyId = new SelectList(db.Companies.Where(a => a.IsActive == true), "CompanyId", "CompanyName", invoices.CompanyId);
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName", invoices.ConsultantId);
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName", invoices.ProjectId);
             return View(invoices);
         }
 
@@ -140,10 +141,11 @@ namespace Egen.Controllers
                 }
                 
             }
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "AccountName", invoices.BankId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", invoices.CompanyId);
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName", invoices.ConsultantId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName", invoices.ProjectId);
+
+            ViewBag.BankId = new SelectList(db.Banks.Where(a=>a.IsActive == true), "BankId", "AccountName", invoices.BankId);
+            ViewBag.CompanyId = new SelectList(db.Companies.Where(a => a.IsActive == true), "CompanyId", "CompanyName", invoices.CompanyId);
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName", invoices.ConsultantId);
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName", invoices.ProjectId);
             return View(invoices);
         }
 
@@ -152,8 +154,10 @@ namespace Egen.Controllers
             Invoices data = db.Invoices.First(s => s.InvoiceId == id);
             if (data != null)
             {
-                db.Invoices.Remove(data);
+                data.IsActive = false;
+                db.Entry(data).State = EntityState.Modified;
                 db.SaveChanges();
+
             }
             return RedirectToAction("Index");
         }

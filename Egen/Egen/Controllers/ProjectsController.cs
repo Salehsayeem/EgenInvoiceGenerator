@@ -19,7 +19,8 @@ namespace Egen.Controllers
         // GET: Projects
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            var list = db.Projects.Where(a => a.IsActive == true).ToList();
+            return View(list);
         }
 
         // GET: Projects/Details/5
@@ -45,7 +46,7 @@ namespace Egen.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectId,ProjectName,ProjectCode")] Projects projects)
+        public ActionResult Create(Projects projects)
         {
             if (ModelState.IsValid)
             {
@@ -72,12 +73,9 @@ namespace Egen.Controllers
             return View(projects);
         }
 
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectId,ProjectName,ProjectCode")] Projects projects)
+        public ActionResult Edit(Projects projects)
         {
             if (ModelState.IsValid)
             {
@@ -94,8 +92,10 @@ namespace Egen.Controllers
             Projects data = db.Projects.First(s => s.ProjectId == id);
             if (data != null)
             {
-                db.Projects.Remove(data);
+                data.IsActive = false;
+                db.Entry(data).State = EntityState.Modified;
                 db.SaveChanges();
+
             }
             return RedirectToAction("Index");
         }

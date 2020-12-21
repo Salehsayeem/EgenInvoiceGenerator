@@ -18,11 +18,10 @@ namespace Egen.Controllers
         // GET: Banks
         public ActionResult Index()
         {
-            var banks = db.Banks.Include(b => b.Consultant);
-            return View(banks.ToList());
+            var list = db.Banks.Include(c => c.Consultant).Where(a => a.IsActive == true).ToList();
+            return View(list);
         }
 
-        // GET: Banks/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -40,29 +39,27 @@ namespace Egen.Controllers
         // GET: Banks/Create
         public ActionResult Create()
         {
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName");
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName");
             return View();
         }
 
-        // POST: Banks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BankId,AccountName,AccountNumber,Iban,BankName,SwiftCode,RoutingType,RoutingNumber,BankCountry,BankBranch,ConsultantId")] Banks banks)
+        public ActionResult Create( Banks banks)
         {
             if (ModelState.IsValid)
             {
+                banks.IsActive = true;
                 db.Banks.Add(banks);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName", banks.ConsultantId);
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName", banks.ConsultantId);
             return View(banks);
         }
 
-        // GET: Banks/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,16 +71,13 @@ namespace Egen.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName", banks.ConsultantId);
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName", banks.ConsultantId);
             return View(banks);
         }
 
-        // POST: Banks/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BankId,AccountName,AccountNumber,Iban,BankName,SwiftCode,RoutingType,RoutingNumber,BankCountry,BankBranch,ConsultantId")] Banks banks)
+        public ActionResult Edit( Banks banks)
         {
             if (ModelState.IsValid)
             {
@@ -91,18 +85,18 @@ namespace Egen.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ConsultantId = new SelectList(db.Consultants, "ConsultantId", "ConsultantName", banks.ConsultantId);
+            ViewBag.ConsultantId = new SelectList(db.Consultants.Where(a => a.IsActive == true), "ConsultantId", "ConsultantName", banks.ConsultantId);
             return View(banks);
         }
-
-        // GET: Banks/Delete/5
         public ActionResult Delete(int id)
         {
             Banks data = db.Banks.First(s => s.BankId == id);
             if (data != null)
             {
-                db.Banks.Remove(data);
+                data.IsActive = false;
+                db.Entry(data).State = EntityState.Modified;
                 db.SaveChanges();
+
             }
             return RedirectToAction("Index");
         }

@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Egen.Models.Banks>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -51,52 +50,51 @@
     </tr>
     </thead>
 
-        @foreach (var item in Model)
-        {
-            <tbody>
-            <tr>
-                <td>@(a++)</td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Consultant.ConsultantName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AccountName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AccountNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Iban)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BankName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SwiftCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoutingType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoutingNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BankCountry)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BankBranch)
-                </td>
-                <td>
-                    <a class="btn btn-sm btn-teal" href="@Url.Action("Edit", new {id = item.BankId})">
-                        <i class="fa fa-pencil-square-o" title="Edit"></i>
-                    </a>
-                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", new {id = item.BankId})" onclick="return confirm('Are sure wants to delete? ');">
-                        <i class="fa fa-trash-o" title="Delete"></i>
-                    </a>
+       @foreach(var item in Model){
+           <tbody>
+                <tr>
+                    <td>@(a++)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Consultant.ConsultantName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Iban)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SwiftCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoutingType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoutingNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankCountry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankBranch)
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-teal" href="@Url.Action("Edit", new {id = item.BankId})">
+                            <i class="fa fa-pencil-square-o" title="Edit"></i>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", new {id = item.BankId})" @*onclick="return confirm('Are sure wants to delete? ');*@>
+                            <i class="fa fa-trash-o" title="Delete"></i>
+                        </a>
 
-                </td>
-            </tr>
-            </tbody>
+                    </td>
+                </tr>
+                </tbody>
         }
 
 </table>

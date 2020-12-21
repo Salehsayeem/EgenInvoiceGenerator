@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 namespace Egen.Models
 {
-    public partial class Consultants
+    public class Consultants
     {
         public Consultants()
         {
@@ -17,8 +17,8 @@ namespace Egen.Models
         public string ConsultantName { get; set; }
         public string ConsultantDesignation { get; set; }
         public int ProjectId { get; set; }
-
-        public virtual Projects Project { get; set; }
+        public bool? IsActive { get; set; }
+        public Projects Project { get; set; }
         public virtual ICollection<Banks> Banks { get; set; }
         public virtual ICollection<Invoices> Invoices { get; set; }
     }

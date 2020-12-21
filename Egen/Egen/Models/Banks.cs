@@ -6,12 +6,8 @@ using System.Web;
 
 namespace Egen.Models
 {
-    public partial class Banks
+    public class Banks
     {
-        public Banks()
-        {
-            Invoices = new HashSet<Invoices>();
-        }
         [Key]
         public int BankId { get; set; }
         public string AccountName { get; set; }
@@ -24,8 +20,8 @@ namespace Egen.Models
         public string BankCountry { get; set; }
         public string BankBranch { get; set; }
         public int? ConsultantId { get; set; }
-
-        public virtual Consultants Consultant { get; set; }
-        public virtual ICollection<Invoices> Invoices { get; set; }
+        public bool? IsActive { get; set; }
+        public  Consultants Consultant { get; set; }
+        public ICollection<Invoices> Invoices { get; set; }
     }
 }

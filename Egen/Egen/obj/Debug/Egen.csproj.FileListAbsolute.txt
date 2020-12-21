@@ -42,3 +42,7 @@ G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.csproj.CopyComplete
 G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.dll
 G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.pdb
 G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.csprojAssemblyReference.cache
+G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.Migrations.init3.resources
+G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.Migrations.dd.resources
+G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.Migrations.inittt.resources
+G:\Practice\MVC\EgenMvc\Egen\Egen\obj\Debug\Egen.Migrations.isActive.resources

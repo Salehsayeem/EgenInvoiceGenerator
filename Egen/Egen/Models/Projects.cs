@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Egen.Models
 {
-    public partial class Projects
+    public class Projects
     {
-        
+
         public Projects()
         {
             Consultants = new HashSet<Consultants>();
@@ -18,6 +18,7 @@ namespace Egen.Models
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string ProjectCode { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual ICollection<Consultants> Consultants { get; set; }
         public virtual ICollection<Invoices> Invoices { get; set; }

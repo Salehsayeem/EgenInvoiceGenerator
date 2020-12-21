@@ -18,8 +18,9 @@ namespace Egen.Controllers
         // GET: Consultants
         public ActionResult Index()
         {
-            var consultants = db.Consultants.Include(c => c.Project);
-            return View(consultants.ToList());
+            var list = db.Consultants.Include(c => c.Project).Where(a => a.IsActive == true).ToList();
+            return View(list);
+
         }
 
         // GET: Consultants/Details/5
@@ -40,25 +41,23 @@ namespace Egen.Controllers
         // GET: Consultants/Create
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName");
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName");
             return View();
         }
 
-        // POST: Consultants/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ConsultantId,ConsultantName,ConsultantDesignation,ProjectId")] Consultants consultants)
+        public ActionResult Create(Consultants consultants)
         {
             if (ModelState.IsValid)
             {
+                consultants.IsActive = true;
                 db.Consultants.Add(consultants);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName", consultants.ProjectId);
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName", consultants.ProjectId);
             return View(consultants);
         }
 
@@ -74,16 +73,13 @@ namespace Egen.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName", consultants.ProjectId);
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName", consultants.ProjectId);
             return View(consultants);
         }
 
-        // POST: Consultants/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ConsultantId,ConsultantName,ConsultantDesignation,ProjectId")] Consultants consultants)
+        public ActionResult Edit( Consultants consultants)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +87,7 @@ namespace Egen.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "ProjectId", "ProjectName", consultants.ProjectId);
+            ViewBag.ProjectId = new SelectList(db.Projects.Where(a => a.IsActive == true), "ProjectId", "ProjectName", consultants.ProjectId);
             return View(consultants);
         }
 
@@ -100,8 +96,10 @@ namespace Egen.Controllers
             Consultants data = db.Consultants.First(s => s.ConsultantId == id);
             if (data != null)
             {
-                db.Consultants.Remove(data);
+                data.IsActive = false;
+                db.Entry(data).State = EntityState.Modified;
                 db.SaveChanges();
+
             }
             return RedirectToAction("Index");
         }

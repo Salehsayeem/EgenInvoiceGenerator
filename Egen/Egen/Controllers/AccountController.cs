@@ -185,12 +185,9 @@ namespace Egen.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, model.Name);
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-
-                    
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     return RedirectToAction("UsersWithRoles", "Account");
                 }
                 ViewBag.Name = new SelectList(db.Roles, "Name", "Name", model.Name);
